@@ -44,17 +44,17 @@ SocksPort 0.0.0.0:9050
 Log notice stdout
 ```
 
-# Starting Docker
+### Starting Docker
 ```
 sudo docker compose up --build -d
 ```
 
-# Getting Container's Local IP
+### Getting Container's Local IP
 ```
 sudo docker inspect tor-proxy | grep "IPAddress"
 ```
 
-# Testing Tor
+### Testing Tor
 To test the Tor proxy, use the container's IP with `main.py`. First, set up a Python virtual environment and install dependencies from `requirements.txt`:
 ```
 python3 -m venv venv
