@@ -56,7 +56,15 @@ Getting container's local IP:
 sudo docker inspect tor-proxy | grep "IPAddress"
 ```
 
-Use that IP 
+# Testing Tor 
+Use that IP with main.py to test proxy, first setup a python virtual environment for packages and install `requirements.txt`:
+```
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+python3 main.py --ip 172.20.0.3
+```
+
 
 
 
