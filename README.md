@@ -1,10 +1,10 @@
-# Tor proxy generator
+# Tor Proxy Generator
 
-You can generate a tor IP by connecting to the tor network using torrc. The docker container provided will setup tor for you and you can access it using your docker container's IP address.
+This project sets up a Tor proxy using a Docker container, allowing you to route traffic through the Tor network. The container configures Tor with a custom `torrc` file, and you can access the proxy using the container's local IP address.
 
-That local IP address forwards your traffic through the Tor network.
+The local IP forwards your traffic through the Tor network for anonymous requests.
 
-[Dockerfile source code:](./Dockerfile) 
+[Dockerfile source code:](./Dockerfile)
 ```dockerfile
 # Use a lightweight Debian-based image
 FROM debian:bullseye-slim
@@ -22,7 +22,6 @@ EXPOSE 9050
 
 # Run Tor as the main process
 CMD ["tor", "-f", "/etc/tor/torrc"]
-
 ```
 
 [docker-compose.yaml source code:](./docker-compose.yaml)
@@ -37,7 +36,6 @@ services:
       - "9050:9050"
     container_name: tor-proxy
     restart: unless-stopped
-
 ```
 
 [torrc source code:](./torrc)
@@ -46,25 +44,27 @@ SocksPort 0.0.0.0:9050
 Log notice stdout
 ```
 
-# Starting docker
+# Starting Docker
 ```
 sudo docker compose up --build -d
 ```
 
-Getting container's local IP:
+# Getting Container's Local IP
 ```
 sudo docker inspect tor-proxy | grep "IPAddress"
 ```
 
-# Testing Tor 
-Use that IP with main.py to test proxy, first setup a python virtual environment for packages and install `requirements.txt`:
+# Testing Tor
+To test the Tor proxy, use the container's IP with `main.py`. First, set up a Python virtual environment and install dependencies from `requirements.txt`:
 ```
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-python3 main.py --ip 172.20.0.3
+python3 main.py --ip <container-ip>
 ```
 
-
-
+Example:
+```
+python3 main.py --ip 172.20.0.3
+```
 
